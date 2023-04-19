@@ -25,7 +25,6 @@ namespace SalesTax.Services
 			CheckOutResult checkOutResult = new CheckOutResult();
 			checkOutResult.PaidItems = new List<PaidItem>();
 
-
             decimal salesTax = 0;
 			decimal total = 0;
 
@@ -40,10 +39,7 @@ namespace SalesTax.Services
 					curTax += Math.Ceiling(importTax*20)/20;
                 }
 
-				if(item.Kind != Kind.Default)
-				{
-				}
-				else
+				if(item.Kind == Kind.Default)
 				{
 					var defaultTax = item.UnitPrice * item.Count * 0.1m;
                     curTax += Math.Ceiling(defaultTax * 20) / 20;
@@ -53,13 +49,11 @@ namespace SalesTax.Services
                 curPriceForItem = item.UnitPrice * item.Count + curTax;
                 total += curPriceForItem;
 
-                checkOutResult.PaidItems.Add(new PaidItem() { Count = item.Count, Name = item.Name, Price = curPriceForItem });
-
-
+				checkOutResult.PaidItems.Add(new PaidItem() { Count = item.Count, Name = item.Name, Price = curPriceForItem });
             }
 
 			checkOutResult.SalesTax = salesTax;
-            checkOutResult.Total = total;
+			checkOutResult.Total = total;
 
 			return checkOutResult;
 		}

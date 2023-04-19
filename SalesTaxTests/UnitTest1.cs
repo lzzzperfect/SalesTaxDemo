@@ -24,7 +24,6 @@ public class TaxServiceUnitTests
         Item item3 = new Item() { Count = 1, Kind = Kind.Food, Name = "chocolate bar", UnitPrice = 0.85m };
         List<Item> items = new List<Item>() { item1, item2, item3 };
 
-        
         var result = this.TaxService.CalculateTax(items);
         Assert.AreEqual(3, result.PaidItems.Count);
         Assert.AreEqual(1.50m, result.SalesTax);
@@ -37,7 +36,6 @@ public class TaxServiceUnitTests
         Item item1 = new Item() { Count = 1, IsImport = true, Kind = Kind.Food, Name = "chocolates", UnitPrice = 10.00m };
         Item item2 = new Item() { Count = 1, IsImport = true, Kind = Kind.Default, Name = "perfume", UnitPrice = 47.50m };
         List<Item> items = new List<Item>() { item1, item2 };
-
 
         var result = this.TaxService.CalculateTax(items);
         Assert.AreEqual(2, result.PaidItems.Count);
@@ -65,7 +63,6 @@ public class TaxServiceUnitTests
     {
         Item item1 = new Item() { Count = 10, Kind = Kind.Medical, Name = "headache pills", UnitPrice = 10.00m };
         Item item2 = new Item() { Count = 1, IsImport = true, Kind = Kind.Default, Name = "perfume", UnitPrice = 100.00m };
-
         List<Item> items = new List<Item>() { item1, item2 };
 
         var result = this.TaxService.CalculateTax(items);
