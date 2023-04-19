@@ -59,4 +59,19 @@ public class TaxServiceUnitTests
         Assert.AreEqual(6.70m, result.SalesTax);
         Assert.AreEqual(74.68m, result.Total);
     }
+
+    [TestMethod]
+    public void TestMultipleSameItemTax()
+    {
+        Item item1 = new Item() { Count = 10, Kind = Kind.Medical, Name = "headache pills", UnitPrice = 10.00m };
+        Item item2 = new Item() { Count = 1, IsImport = true, Kind = Kind.Default, Name = "perfume", UnitPrice = 100.00m };
+
+        List<Item> items = new List<Item>() { item1, item2 };
+
+        var result = this.TaxService.CalculateTax(items);
+        Assert.AreEqual(2, result.PaidItems.Count);
+        Assert.AreEqual(10, result.PaidItems[0].Count);
+        Assert.AreEqual(15m, result.SalesTax);
+        Assert.AreEqual(215m, result.Total);
+    }
 }
