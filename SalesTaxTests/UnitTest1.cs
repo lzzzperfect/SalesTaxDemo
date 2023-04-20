@@ -8,7 +8,7 @@ namespace SalesTaxTests;
 [TestClass]
 public class TaxServiceUnitTests
 {
-    private TaxService TaxService;
+    private IService TaxService;
 
     [TestInitialize]
     public void testInit()
@@ -24,7 +24,7 @@ public class TaxServiceUnitTests
         Item item3 = new Item() { Count = 1, Kind = Kind.Food, Name = "chocolate bar", UnitPrice = 0.85m };
         List<Item> items = new List<Item>() { item1, item2, item3 };
 
-        var result = this.TaxService.CalculateTax(items);
+        var result = this.TaxService.Calculate(items);
         Assert.AreEqual(3, result.PaidItems.Count);
         Assert.AreEqual(1.50m, result.SalesTax);
         Assert.AreEqual(29.83m, result.Total);
@@ -37,7 +37,7 @@ public class TaxServiceUnitTests
         Item item2 = new Item() { Count = 1, IsImport = true, Kind = Kind.Default, Name = "perfume", UnitPrice = 47.50m };
         List<Item> items = new List<Item>() { item1, item2 };
 
-        var result = this.TaxService.CalculateTax(items);
+        var result = this.TaxService.Calculate(items);
         Assert.AreEqual(2, result.PaidItems.Count);
         Assert.AreEqual(7.65m, result.SalesTax);
         Assert.AreEqual(65.15m, result.Total);
@@ -52,7 +52,7 @@ public class TaxServiceUnitTests
         Item item4 = new Item() { Count = 1, IsImport = true, Kind = Kind.Food, Name = "chocolates", UnitPrice = 11.25m };
         List<Item> items = new List<Item>() { item1, item2, item3, item4 };
 
-        var result = this.TaxService.CalculateTax(items);
+        var result = this.TaxService.Calculate(items);
         Assert.AreEqual(4, result.PaidItems.Count);
         Assert.AreEqual(6.70m, result.SalesTax);
         Assert.AreEqual(74.68m, result.Total);
@@ -65,7 +65,7 @@ public class TaxServiceUnitTests
         Item item2 = new Item() { Count = 1, IsImport = true, Kind = Kind.Default, Name = "perfume", UnitPrice = 100.00m };
         List<Item> items = new List<Item>() { item1, item2 };
 
-        var result = this.TaxService.CalculateTax(items);
+        var result = this.TaxService.Calculate(items);
         Assert.AreEqual(2, result.PaidItems.Count);
         Assert.AreEqual(10, result.PaidItems[0].Count);
         Assert.AreEqual(15m, result.SalesTax);
